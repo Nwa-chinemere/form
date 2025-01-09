@@ -1,15 +1,19 @@
 <?php
+// Enable error reporting for debugging
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+// Predefined credentials
 $correct_email = "admin@gmail.com";
 $correct_password = "123456789";
 
 $login_message = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $submitted_email = $_POST["email"];
-    $submitted_password = $_POST["password"];
+    // Sanitize user input
+    $submitted_email = htmlspecialchars($_POST["email"]);
+    $submitted_password = htmlspecialchars($_POST["password"]);
     
+    // Check credentials
     if ($submitted_email === $correct_email && $submitted_password === $correct_password) {
         $login_message = "<h1>Welcome " . htmlspecialchars($submitted_email) . "</h1><p>Login successful</p>";
     } else {
@@ -17,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,9 +64,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <h3>SIGN IN</h3>
-    <?php
-    echo $login_message
-    ?>
+    <!-- Display login message here -->
+    <?php echo $login_message; ?>
     <form method="POST" action="">
         <label><i class="fa-solid fa-envelope"></i>Email</label>
         <input type="text" id="email" placeholder="email" name="email" required>
@@ -74,7 +76,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <a href="ad funds forgottenp.html">Forgotten password</a>
     </form>
-    <!-- Display login message here -->
-    <?php echo $login_message; ?>
 </body>
 </html>
